@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="JupyterSharpParser" Version="1.0.0" />
-    <PackageReference Include="OneOf" Version="3.0.271" />
-  </ItemGroup>
-
 </Project>

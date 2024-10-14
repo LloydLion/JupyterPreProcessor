@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JupyterPreProcessor", "JupyterPreProcessor\JupyterPreProcessor.csproj", "{F0F8AE9A-F623-46A8-8523-24E3EB0BA0E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JupyterPreProcessor", "JupyterPreProcessor\JupyterPreProcessor.csproj", "{F0F8AE9A-F623-46A8-8523-24E3EB0BA0E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JupyterPreProcessor.Core", "JupyterPreProcessor.Core\JupyterPreProcessor.Core.csproj", "{CAC4D3C0-7B4E-444D-B549-78F831C1E4E6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JupyterPreProcessor.Processors", "JupyterPreProcessor.Processors\JupyterPreProcessor.Processors.csproj", "{2870D34B-C6A0-4515-81CF-1F55548B3145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JupyterPreProcessor.Core", "JupyterPreProcessor.Core\JupyterPreProcessor.Core.csproj", "{CAC4D3C0-7B4E-444D-B549-78F831C1E4E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{CAC4D3C0-7B4E-444D-B549-78F831C1E4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAC4D3C0-7B4E-444D-B549-78F831C1E4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAC4D3C0-7B4E-444D-B549-78F831C1E4E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2870D34B-C6A0-4515-81CF-1F55548B3145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2870D34B-C6A0-4515-81CF-1F55548B3145}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2870D34B-C6A0-4515-81CF-1F55548B3145}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2870D34B-C6A0-4515-81CF-1F55548B3145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
