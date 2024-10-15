@@ -1,6 +1,8 @@
-﻿namespace JupyterPreProcessor.Core.Segments
+﻿using JupyterPreProcessor.Core.Raw;
+
+namespace JupyterPreProcessor.Core.Segments
 {
-	public class TextSegment : Segment
+    public class TextSegment : Segment
 	{
 		public TextSegment(RawLines text)
 		{
