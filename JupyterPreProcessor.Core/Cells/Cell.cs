@@ -4,7 +4,7 @@ using JupyterPreProcessor.Core.Sequences;
 
 namespace JupyterPreProcessor.Core.Cells
 {
-    public abstract class Cell
+	public abstract class Cell
 	{
 		private SegmentSequence _sequence;
 		private CellMetadata _metadata;

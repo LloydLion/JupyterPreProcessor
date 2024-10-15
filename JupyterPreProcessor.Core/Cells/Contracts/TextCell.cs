@@ -16,8 +16,7 @@ namespace JupyterPreProcessor.Core.Cells.Contracts
 
 		public RawLines Compile()
 		{
-			var lines = Segments.SelectMany(s => ((TextSegment)s).Text.Lines).ToArray();
-			return new RawLines(lines);
+			return Segments.JoinToText();
 		}
 	}
 }

@@ -16,7 +16,9 @@ namespace JupyterPreProcessor.Core.Sequences
 
 		public Segment this[int index] => _segments[index];
 
+
 		public int Count => _segments.Count;
+
 
 		public ISegmentSequenceEnumerator GetEnumerator()
 		{
