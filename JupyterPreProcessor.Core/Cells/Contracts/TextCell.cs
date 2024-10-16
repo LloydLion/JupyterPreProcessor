@@ -1,5 +1,6 @@
 ﻿using JupyterPreProcessor.Core.Raw;
 using JupyterPreProcessor.Core.Segments;
+using JupyterPreProcessor.Core.Sequences;
 
 namespace JupyterPreProcessor.Core.Cells.Contracts
 {

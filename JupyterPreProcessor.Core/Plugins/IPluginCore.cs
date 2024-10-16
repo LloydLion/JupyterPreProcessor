@@ -13,9 +13,10 @@ namespace JupyterPreProcessor.Core.Plugins
 
 		public void VisitCell(SourceCell cell, PluginContext ctx, object state);
 
-		public SegmentSequence ResolveTag(TagSegment tag, SourceCell cell, PluginContext ctx, object state);
+		public IEnumerable<TextSegment> ResolveTag(
+			TagSegment tag, SourceCell cell, PluginContext ctx, object state);
 
-		public SegmentSequence HandleMod(
+		public IEnumerable<TextSegment> HandleMod(
 			ModsSegment.ModEntry mod, SourceCell cell, PluginContext ctx, object state);
 	}
 }
