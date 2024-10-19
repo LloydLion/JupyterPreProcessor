@@ -6,11 +6,11 @@ namespace JupyterPreProcessor.Core.Cells
 {
 	public abstract class Cell
 	{
-		private SegmentSequence _sequence;
+		private ISegmentSequence _sequence;
 		private CellMetadata _metadata;
 
 
-		public static TCell Create<TCell>(SegmentSequence segments, CellMetadata metadata) where TCell : Cell, new()
+		public static TCell Create<TCell>(ISegmentSequence segments, CellMetadata metadata) where TCell : Cell, new()
 		{
 			var cell = Activator.CreateInstance<TCell>();
 			cell._sequence = segments;
@@ -22,7 +22,7 @@ namespace JupyterPreProcessor.Core.Cells
 		}
 
 
-		public SegmentSequence Segments => _sequence;
+		public ISegmentSequence Segments => _sequence;
 
 		public CellMetadata Metadata => _metadata;
 

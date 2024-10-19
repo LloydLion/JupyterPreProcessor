@@ -6,6 +6,9 @@ namespace JupyterPreProcessor.Core.Cells.Contracts
 {
 	public class TemplateCell : Cell
 	{
+		public string Name => ((TemplateSegment)Segments[0]).Name;
+
+
 		protected override void Validate()
 		{
 			var enumerator = Segments.GetEnumerator();
@@ -25,7 +28,6 @@ namespace JupyterPreProcessor.Core.Cells.Contracts
 						typeof(TemplateCell), GetType(), enumerator.Current);
 			}
 		}
-
 
 		public RawLines SubstituteParameters(
 			IReadOnlyDictionary<string, string> singleLineParameters,

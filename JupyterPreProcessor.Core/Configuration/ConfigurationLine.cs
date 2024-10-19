@@ -1,4 +1,4 @@
 ﻿namespace JupyterPreProcessor.Core.Configuration
 {
-	public record struct ConfigurationLine(string line);
+	public record struct ConfigurationLine(string Line);
 }

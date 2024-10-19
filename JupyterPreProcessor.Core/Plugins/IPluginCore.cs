@@ -9,14 +9,14 @@ namespace JupyterPreProcessor.Core.Plugins
 		public void Build(IPluginBuilder builder);
 
 
-		public object InitializePluginState(PluginContext ctx);
+		public object InitializePluginState(IPluginContext ctx);
 
-		public void VisitCell(SourceCell cell, PluginContext ctx, object state);
+		public void VisitCell(SourceCell cell, IPluginContext ctx, object state);
 
 		public IEnumerable<TextSegment> ResolveTag(
-			TagSegment tag, SourceCell cell, PluginContext ctx, object state);
+			TagSegment tag, SourceCell cell, IPluginContext ctx, object state);
 
 		public IEnumerable<TextSegment> HandleMod(
-			ModsSegment.ModEntry mod, SourceCell cell, PluginContext ctx, object state);
+			ModsSegment.ModEntry mod, SourceCell cell, IPluginContext ctx, object state);
 	}
 }

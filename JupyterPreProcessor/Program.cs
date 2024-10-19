@@ -1,53 +1,53 @@
-﻿using JupyterPreProcessor.Core.Cells;
+﻿using JupyterPreProcessor;
+using JupyterPreProcessor.Core.Engine;
 using JupyterPreProcessor.Core.Raw;
 
+var sourceDocument = new RawDocument([
 
-var sourceRawCell = new RawCell(new RawLines([
+	new RawCell(new RawLines([
+		"[Parameters]",
+		"",
+		"[DefaultMods]",
+		""
 
-".someMod",
-".someMod2 with parameters",
-".someMod3 with parameters too",
-"",
-".not a mod",
-"Hello world it is just text",
-"1 line more",
-"@tag with parameters",
-"@second tag",
-"@third tag in row",
-"Some text between tags",
-"",
-"@tag2 tag tag",
-".not a mod 2",
-"Last line"
+	]), new("Virtual/Source.ipynb", CellType.Markdown)),
 
-]), new CellMetadata("Virtual", CellType.Markdown));
 
-var sourceParser = new SourceDocumentCellParser();
-var sourceCell = sourceParser.Parse(sourceRawCell);
+	new RawCell(new RawLines([
+		".demo",
+		"",
+		"Other text 1",
+		"@test",
+		"@testTemplate axaxaxa",
+		"Other text 2"
 
-foreach (var segment in sourceCell.Segments)
+	]), new("Virtual/Source.ipynb", CellType.Markdown))
+]);
+
+var templateDocument = new RawDocument([
+
+	new RawCell(new RawLines([
+		"Example",
+		"Multi line template",
+		"Data from 'data' parameter: ${data}, post chars",
+		""
+
+	]), new("Virtual/Template.ipynb", CellType.Markdown))
+]);
+
+
+var engine = new DefaultPreprocessorEngine();
+
+engine.RegisterPlugin(new TestPlugin());
+engine.SetTemplateDocument(templateDocument);
+
+var resultDocument = engine.Process(sourceDocument);
+
+var i = 0;
+foreach (var rawCell in resultDocument.Cells)
 {
-	Console.WriteLine(segment);
-}
-
-Console.WriteLine(new string('=', 50));
-
-var templateRawCell = new RawCell(new RawLines([
-
-"TemplateName",
-"some template content",
-"",
-"${...multiLineParameter}",
-"Some text 2",
-"Some text ${withSingle} line parameter",
-"EOF"
-
-]), new CellMetadata("Virtual", CellType.Markdown));
-
-var templateParser = new TemplateDocumentCellParser();
-var templateCell = templateParser.Parse(templateRawCell);
-
-foreach (var segment in templateCell.Segments)
-{
-	Console.WriteLine(segment);
+	Console.WriteLine($"[{i}] \"{rawCell.Metadata.SourceDocument}\" {rawCell.Metadata.Type}:");
+	foreach (var line in rawCell.Lines.Lines)
+		Console.WriteLine("|" + line);
+	i++;
 }
