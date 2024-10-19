@@ -20,8 +20,8 @@ namespace JupyterPreProcessor.Core.Cells
 			while (parameterEntry < lines.Length)
 			{
 				var line = lines[parameterEntry];
-				var slMatch = Regex.Match(line, @"\${(\w+)}");
-				var mlMatch = Regex.Match(line, @"^\${\.\.\.(\w+)}$");
+				var slMatch = Regex.Match(line, @"!!{(\w+)}");
+				var mlMatch = Regex.Match(line, @"^!!{\.\.\.(\w+)}$");
 				var isMatch = slMatch.Success || mlMatch.Success;
 
 				if (isMatch)

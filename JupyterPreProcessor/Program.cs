@@ -1,44 +1,23 @@
 ﻿using JupyterPreProcessor;
 using JupyterPreProcessor.Core.Engine;
 using JupyterPreProcessor.Core.Raw;
-
-var sourceDocument = new RawDocument([
-
-	new RawCell(new RawLines([
-		"[Parameters]",
-		"",
-		"[DefaultMods]",
-		""
-
-	]), new("Virtual/Source.ipynb", CellType.Markdown)),
+using JupyterSharpParser;
+using JupyterSharpParser.Renderers.Json;
+using JupyterSharpParser.Syntax;
+using JupyterSharpParser.Syntax.Cell.Common;
 
 
-	new RawCell(new RawLines([
-		".demo",
-		"",
-		"Other text 1",
-		"@test",
-		"@testTemplate axaxaxa",
-		"Other text 2"
+var sourceDocumentData = File.ReadAllText("source.ipynb");
+var sourceDocument = load(sourceDocumentData, "source.ipynb");
 
-	]), new("Virtual/Source.ipynb", CellType.Markdown))
-]);
 
-var templateDocument = new RawDocument([
-
-	new RawCell(new RawLines([
-		"Example",
-		"Multi line template",
-		"Data from 'data' parameter: ${data}, post chars",
-		""
-
-	]), new("Virtual/Template.ipynb", CellType.Markdown))
-]);
+var templateDocumentData = File.ReadAllText("template.ipynb");
+var templateDocument = load(templateDocumentData, "template.ipynb");
 
 
 var engine = new DefaultPreprocessorEngine();
 
-engine.RegisterPlugin(new TestPlugin());
+engine.RegisterPlugin(new TitlePagePlugin());
 engine.SetTemplateDocument(templateDocument);
 
 var resultDocument = engine.Process(sourceDocument);
@@ -50,4 +29,59 @@ foreach (var rawCell in resultDocument.Cells)
 	foreach (var line in rawCell.Lines.Lines)
 		Console.WriteLine("|" + line);
 	i++;
+}
+
+var resultDocumentData = save(resultDocument);
+File.WriteAllText("output.ipynb", resultDocumentData);
+
+
+RawDocument load(string data, string source)
+{
+	var document = Jupyter.Parse(data);
+	var cells = document.Cells
+		.Select(s => s switch
+		{
+			JupyterSharpParser.Syntax.Cell.MarkdownCell md =>
+				new { Lines = md.Source, Type = CellType.Markdown },
+
+			JupyterSharpParser.Syntax.Cell.CodeCell code =>
+				new { Lines = code.Source, Type = CellType.Code },
+
+			_ => throw new NotSupportedException()
+		})
+		.Select(s => new RawCell(new RawLines(s.Lines), new CellMetadata(source, s.Type)))
+		.ToArray();
+
+	return new RawDocument(cells);
+}
+
+string save(RawDocument document)
+{
+	var jDocument = new JupyterDocument
+	{
+		Cells = document.Cells
+			.Select<RawCell, JupyterSharpParser.Syntax.Cell.ICell>(s => s.Metadata.Type switch
+			{
+				CellType.Markdown => new JupyterSharpParser.Syntax.Cell.MarkdownCell()
+				{ Source = toLines(s.Lines) },
+
+				CellType.Code => new JupyterSharpParser.Syntax.Cell.CodeCell()
+				{ Source = toLines(s.Lines) },
+
+				_ => throw new NotSupportedException()
+			})
+			.ToArray()
+	};
+
+	var writer = new StringWriter();
+	var renderer = new JsonRenderer(writer);
+	renderer.Render(jDocument);
+	return writer.ToString();
+
+	Lines toLines(RawLines rawLines)
+	{
+		var lines = new Lines();
+		lines.AddRange(rawLines.Lines);
+		return lines;
+	}
 }
