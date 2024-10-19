@@ -10,7 +10,7 @@ namespace JupyterPreProcessor.Core.Cells
 		private CellMetadata _metadata;
 
 
-		public static TCell Create<TCell>(SegmentSequence segments, CellMetadata metadata) where TCell : Cell
+		public static TCell Create<TCell>(SegmentSequence segments, CellMetadata metadata) where TCell : Cell, new()
 		{
 			var cell = Activator.CreateInstance<TCell>();
 			cell._sequence = segments;
