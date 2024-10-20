@@ -1,6 +1,7 @@
 ﻿using JupyterPreProcessor;
 using JupyterPreProcessor.Core.Engine;
 using JupyterPreProcessor.Core.Raw;
+using JupyterPreProcessor.Plugins;
 using JupyterSharpParser;
 using JupyterSharpParser.Renderers.Json;
 using JupyterSharpParser.Syntax;
@@ -18,6 +19,9 @@ var templateDocument = load(templateDocumentData, "template.ipynb");
 var engine = new DefaultPreprocessorEngine();
 
 engine.RegisterPlugin(new TitlePagePlugin());
+engine.RegisterPlugin(new ContentTablePlugin());
+engine.RegisterPlugin(new WrapPlugin());
+
 engine.SetTemplateDocument(templateDocument);
 
 var resultDocument = engine.Process(sourceDocument);
