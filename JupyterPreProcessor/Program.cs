@@ -18,6 +18,8 @@ var templateDocument = load(templateDocumentData, "template.ipynb");
 
 var engine = new DefaultPreprocessorEngine();
 
+engine.RegisterPlugin(new LiterPlugin());
+engine.RegisterPlugin(new VoidPlugin());
 engine.RegisterPlugin(new TitlePagePlugin());
 engine.RegisterPlugin(new ContentTablePlugin());
 engine.RegisterPlugin(new WrapPlugin());
